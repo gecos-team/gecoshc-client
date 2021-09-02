@@ -85,7 +85,7 @@ if __name__ == '__main__':
     server = sys.argv[2]
 
     config = configparser.ConfigParser()
-    config.read("/etc/helpchannel.conf")
+    config.read(os.environ['APPDIR'] + "/etc/helpchannel.conf")
 
     server_config = config_section_map("ServerConfig")
 

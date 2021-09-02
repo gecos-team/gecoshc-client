@@ -505,15 +505,15 @@ if __name__ == "__main__":
 
     
     # Read /etc/helpchannel.conf file
-    if (not os.path.isfile('/etc/helpchannel.conf') or 
-        not os.access('/etc/helpchannel.conf', os.R_OK)):
+    if (not os.path.isfile(os.environ['APPDIR'] + '/etc/helpchannel.conf') or 
+        not os.access(os.environ['APPDIR'] + '/etc/helpchannel.conf', os.R_OK)):
         # /etc/helpchannel.conf not found or not readable
-        showerror('Error', '/etc/helpchannel.conf not found or is '\
+        showerror('Error', os.environ['APPDIR'] + '/etc/helpchannel.conf not found or is '\
              'not readable. Please, check it and try again.')
         sys.exit(0)
         
     try:
-        config.read('/etc/helpchannel.conf')
+        config.read(os.environ['APPDIR'] + '/etc/helpchannel.conf')
     except configparser.ParsingError as err:
         showerror('Error', 'Error parsing /etc/helpchannel.conf: %s' 
             % (str(err)))
