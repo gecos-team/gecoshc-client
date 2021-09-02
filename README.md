@@ -21,7 +21,7 @@ Install the package 'appimage-builder' following the [official documentation](ht
 To build this project in a Debian system execute:
 
 ``
-appimage-builder .
+appimage-builder
 ``
 
 ## Installing
