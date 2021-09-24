@@ -159,16 +159,20 @@ class HelpChannel(Tk):
     Main application class. It's responsible for showing user dialogs.
     """
 
-    def __init__(self, name, server, *args, **kwargs):
+    def __init__(self, name, server, key, *args, **kwargs):
 
         self.name = name
         self.server = server
+        self.key = key
 
         global connection_code
         connection_code = self.name
 
         global connection_host
         connection_host = self.server
+
+        global connection_key
+        connection_key = self.key
 
         Tk.__init__(self)
 
@@ -210,10 +214,10 @@ class HelpChannel(Tk):
         status = '01-LOGGED'
         
         tunnelscript = os.environ['APPDIR'] + config_section_map("TunnelConfig")['command_full_path']
-        command = [tunnelscript, self.name, self.server]
+        command = [tunnelscript, self.name, self.server, self.key]
         if tunnelscript.endswith('.py'):
             # Use the same python
-            command = [sys.executable, tunnelscript, self.name, self.server]
+            command = [sys.executable, tunnelscript, self.name, self.server, self.key]
 
         logging.info('Starting tunnel...')
         subproc_tunnel = subprocess.Popen(command, stdout=subprocess.PIPE,
@@ -245,7 +249,7 @@ class HelpChannel(Tk):
         repeater = config_section_map("x11vncConfig")['remote_repeater']
         port = config_section_map("x11vncConfig")['remote_port']
 
-        connect_parameter = "repeater=ID:%s-SDC+%s:%s" % (connection_code, repeater, port,)
+        connect_parameter = "repeater=ID:%s+KEY:%s+%s:%s" % (connection_code, connection_key, repeater, port,)
 
         command = [command_full_path,
             "-afteraccept","/bin/kill -SIGUSR1 %s"%(os.getpid()),
@@ -502,6 +506,7 @@ if __name__ == "__main__":
 
     name = sys.argv[1]
     server = sys.argv[2]
+    key = sys.argv[3]
 
     
     # Read /etc/helpchannel.conf file
@@ -569,7 +574,7 @@ if __name__ == "__main__":
     
     
     # Start Help Channel Client
-    app = HelpChannel(name, server)
+    app = HelpChannel(name, server, key)
     app._frame.do_login(app)
 
 
