@@ -31,6 +31,7 @@ class WelcomeHC:
 
         self.name = ''
         self.server = ''
+        self.key = ''
         self.file_path = os.environ['HOME'] + '/' + '.hcdata'
 
         self.getdata()
@@ -54,12 +55,18 @@ class WelcomeHC:
         ip_entry.grid(column=2, row=3, sticky=(W, E))
         if self.server != '': self.server_strvar.set(self.server) 
 
+        self.key_strvar = StringVar()
+        ip_entry = ttk.Entry(mainframe, width=7, textvariable=self.key_strvar)
+        ip_entry.grid(column=2, row=4, sticky=(W, E))
+        if self.key != '': self.key_strvar.set(self.key) 
+
         ttk.Button(mainframe, text=_("Connect"), command=self.validate).grid(
             column=2, row=5, sticky=E)
 
         ttk.Label(mainframe, text=_("Connection data")).grid(column=1, row=1, sticky=W)
         ttk.Label(mainframe, text=_("Name")).grid(column=1, row=2, sticky=W)
         ttk.Label(mainframe, text=_("Host")).grid(column=1, row=3, sticky=W)
+        ttk.Label(mainframe, text=_("Key")).grid(column=1, row=4, sticky=W)
 
         for child in mainframe.winfo_children(): 
             child.grid_configure(padx=5, pady=5)
@@ -76,6 +83,7 @@ class WelcomeHC:
         with open(self.file_path, 'w') as f:
             f.write(self.name + '\n')
             f.write(self.server + '\n')
+            f.write(self.key + '\n')
 
     def getdata(self):
 
@@ -85,6 +93,7 @@ class WelcomeHC:
                 if len(lines) >= 2:
                     self.name = lines[0].rstrip('\n')
                     self.server = lines[1].rstrip('\n')
+                    self.key = lines[2].rstrip('\n')
 
     def validate(self, *args):
 
@@ -106,11 +115,19 @@ class WelcomeHC:
         else:
             self.server = str(self.server_strvar.get())
 
+        if str(self.key_strvar.get()) == '':
+            messagebox.showerror(
+                title='Error',
+                message='La clave no puede estar vacía.')
+            ok = False
+        else:
+            self.key = str(self.key_strvar.get())
+
         if ok:
             self.savedata()
 
             subprocess.call(["python3", os.environ['APPDIR'] + \
-                "/usr/bin/helpchannel", self.name, self.server])
+                "/usr/bin/helpchannel", self.name, self.server, self.key])
 
 
 if __name__ == "__main__":
