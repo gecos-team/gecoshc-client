@@ -23,6 +23,7 @@ import logging
 import signal
 import sys
 import clipboard
+import secrets
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -386,17 +387,17 @@ class EstablishedConnection(Frame):
 
         global connection_code
         global connection_host
-        techurl = ' https://' + connection_host + '/?repeaterID=ID:' + connection_code  + ' '
-        label3 = Label(self, text=techurl, bg="white")
+        token = secrets.token_hex(3).upper()
+        label3 = Label(self, text=token, bg="white")
         label3.pack(side=BOTTOM, fill=BOTH, expand=True)
 
-        label2 = Label(self, text=_('Show the following link to the technician:\n'), bg="white")
+        label2 = Label(self, text=_('Show the following token to the technician:\n'), bg="white")
         label2.pack(side=BOTTOM, fill=BOTH, expand=True)
         
         finish_button = Button(self, text=_('Shut off connection'), command=lambda: self.finish_connection(controller, ))
         finish_button.pack(in_=bottom, side=LEFT, fill=BOTH, expand=True)
         
-        copy_button = Button(self, text=_('Copy URL'), command=clipboard.copy(techurl))
+        copy_button = Button(self, text=_('Copy URL'), command=clipboard.copy(token))
         copy_button.pack(in_=bottom, side=RIGHT, fill=BOTH, expand=True)
 
         self.pack()
