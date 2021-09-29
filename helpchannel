@@ -160,14 +160,14 @@ class HelpChannel(Tk):
     Main application class. It's responsible for showing user dialogs.
     """
 
-    def __init__(self, name, server, key, *args, **kwargs):
+    def __init__(self, server, key, *args, **kwargs):
 
-        self.name = name
         self.server = server
         self.key = key
+        self.token = secrets.token_hex(3).upper()
 
         global connection_code
-        connection_code = self.name
+        connection_code = self.token
 
         global connection_host
         connection_host = self.server
@@ -215,10 +215,10 @@ class HelpChannel(Tk):
         status = '01-LOGGED'
         
         tunnelscript = os.environ['APPDIR'] + config_section_map("TunnelConfig")['command_full_path']
-        command = [tunnelscript, self.name, self.server, self.key]
+        command = [tunnelscript, self.server]
         if tunnelscript.endswith('.py'):
             # Use the same python
-            command = [sys.executable, tunnelscript, self.name, self.server, self.key]
+            command = [sys.executable, tunnelscript, self.server]
 
         logging.info('Starting tunnel...')
         subproc_tunnel = subprocess.Popen(command, stdout=subprocess.PIPE,
@@ -386,18 +386,16 @@ class EstablishedConnection(Frame):
         self.label.pack(side=TOP, fill=BOTH, expand=True)
 
         global connection_code
-        global connection_host
-        token = secrets.token_hex(3).upper()
-        label3 = Label(self, text=token, bg="white")
+        label3 = Label(self, text=connection_code + '\n', bg="white")
         label3.pack(side=BOTTOM, fill=BOTH, expand=True)
 
-        label2 = Label(self, text=_('Show the following token to the technician:\n'), bg="white")
+        label2 = Label(self, text=_('Connection ID:\n'), bg="white")
         label2.pack(side=BOTTOM, fill=BOTH, expand=True)
         
         finish_button = Button(self, text=_('Shut off connection'), command=lambda: self.finish_connection(controller, ))
         finish_button.pack(in_=bottom, side=LEFT, fill=BOTH, expand=True)
         
-        copy_button = Button(self, text=_('Copy URL'), command=clipboard.copy(token))
+        copy_button = Button(self, text=_('Copy URL'), command=clipboard.copy(connection_code))
         copy_button.pack(in_=bottom, side=RIGHT, fill=BOTH, expand=True)
 
         self.pack()
@@ -456,7 +454,7 @@ class EstablishedConnection(Frame):
             '''
             end_loop = True
             time.sleep(0.2)
-            showinfo(_('Alert'), _('Connection finished by communication error'), parent=app)
+            showinfo(_('Alert'), _('Connection finished by communication error or wrong server key.'), parent=app)
             kill_x11()            
             app.destroy()
             sys.exit(0)
@@ -505,9 +503,8 @@ class CustomAskOkCancel:
 
 if __name__ == "__main__":
 
-    name = sys.argv[1]
-    server = sys.argv[2]
-    key = sys.argv[3]
+    server = sys.argv[1]
+    key = sys.argv[2]
 
     
     # Read /etc/helpchannel.conf file
@@ -575,7 +572,7 @@ if __name__ == "__main__":
     
     
     # Start Help Channel Client
-    app = HelpChannel(name, server, key)
+    app = HelpChannel(server, key)
     app._frame.do_login(app)
 
 
