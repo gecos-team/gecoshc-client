@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-06 11:52+0200\n"
+"POT-Creation-Date: 2021-09-29 18:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,83 +17,83 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: helpchannel:39
+#: helpchannel:40
 msgid "A technician is controlling your session\n"
 msgstr ""
 
-#: helpchannel:277
+#: helpchannel:291
 msgid "Connecting to GECOS Control Center..."
 msgstr ""
 
-#: helpchannel:281 helpchannel:586
+#: helpchannel:295 helpchannel:599
 msgid "Cancel"
 msgstr ""
 
-#: helpchannel:371
+#: helpchannel:385
 msgid "Connection stablished\n"
 msgstr ""
 
-#: helpchannel:380
-msgid "Show the following link to the technician:\n"
+#: helpchannel:392
+msgid "Connection ID:\n"
 msgstr ""
 
-#: helpchannel:383
+#: helpchannel:395
 msgid "Shut off connection"
 msgstr ""
 
-#: helpchannel:386
+#: helpchannel:398
 msgid "Copy URL"
 msgstr ""
 
-#: helpchannel:432 helpchannel:445
+#: helpchannel:444 helpchannel:457
 msgid "Alert"
 msgstr ""
 
-#: helpchannel:432
+#: helpchannel:444
 msgid "Connection finished by technician"
 msgstr ""
 
-#: helpchannel:445
-msgid "Connection finished by communication error"
+#: helpchannel:457
+msgid "Connection finished by communication error or wrong server key."
 msgstr ""
 
-#: helpchannel:541
+#: helpchannel:553
 msgid "Error"
 msgstr ""
 
-#: helpchannel:541
+#: helpchannel:553
 #, python-format
 msgid "x11vnc not found at %s. Please, check it and try again."
 msgstr ""
 
-#: helpchannel:586
+#: helpchannel:599
 msgid "Close connection"
 msgstr ""
 
-#: helpchannel:586
+#: helpchannel:599
 msgid "Ok"
 msgstr ""
 
-#: helpchannel:587
+#: helpchannel:600
 msgid "Are you sure you want to abort the connection?"
 msgstr ""
 
-#: welcome.py:39
+#: welcome.py:41
 msgid "Connecting to Helpchannel"
 msgstr ""
 
-#: welcome.py:56
+#: welcome.py:58
 msgid "Connect"
 msgstr ""
 
-#: welcome.py:59
+#: welcome.py:61
 msgid "Connection data"
 msgstr ""
 
-#: welcome.py:60
-msgid "Name"
+#: welcome.py:62
+msgid "Host"
 msgstr ""
 
-#: welcome.py:61
-msgid "Host"
+#: welcome.py:63
+msgid "Key"
 msgstr ""
