@@ -395,7 +395,7 @@ class EstablishedConnection(Frame):
         finish_button = Button(self, text=_('Shut off connection'), command=lambda: self.finish_connection(controller, ))
         finish_button.pack(in_=bottom, side=LEFT, fill=BOTH, expand=True)
         
-        copy_button = Button(self, text=_('Copy URL'), command=clipboard.copy(connection_code))
+        copy_button = Button(self, text=_('Copy ID'), command=clipboard.copy(connection_code))
         copy_button.pack(in_=bottom, side=RIGHT, fill=BOTH, expand=True)
 
         self.pack()
