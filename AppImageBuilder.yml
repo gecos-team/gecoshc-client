@@ -27,10 +27,10 @@ script:
   # Install application dependencies
   - python3 -m pip install --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt
   # Check that the dependencies are installed in AppDir/usr/lib/python3.8 directory
-  - |
-    if [ ! -d AppDir/usr/lib/python3.8 ]; then
-      mv AppDir/usr/lib/python3.* AppDir/usr/lib/python3.8
-    fi
+  #- |
+  #  if [ ! -d AppDir/usr/lib/python3.8 ]; then
+  #   mv AppDir/usr/lib/python3.* AppDir/usr/lib/python3.8
+  #  fi
 
 AppDir:
   path: ./AppDir
